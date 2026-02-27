@@ -660,7 +660,7 @@ GameObject:
   m_Layer: 0
   m_Name: LaunchPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -753,3 +753,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a4fe8be97168b438b8dbdee6cd5616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 4945121803626067499, guid: 12032cc402ef15a42a752d664afa0ce8, type: 3}
+  velocityMult: 10
+  launchPoint: {fileID: 0}
+  launchPos: {x: 0, y: 0, z: 0}
+  projectile: {fileID: 0}
+  aimingMode: 0
