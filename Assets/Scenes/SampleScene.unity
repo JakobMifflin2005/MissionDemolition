@@ -310,13 +310,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 963194225}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 963194229}
+        m_TargetAssemblyTypeName: FollowCam, Assembly-CSharp
+        m_MethodName: SwitchView
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -879,6 +879,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 762647619}
   m_CullTransparentMesh: 1
+--- !u!1 &918590912 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5706165332003274485, guid: 4c9f46137c1312b4b81a4fa3c11f3de7, type: 3}
+  m_PrefabInstance: {fileID: 5706165333234952144}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &958461700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,7 +1067,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   easing: 0.05
   minXY: {x: 0, y: 0}
-  viewBothGO: {fileID: 0}
+  viewBothGO: {fileID: 749469930}
   camZ: 0
   nextView: 1
 --- !u!114 &963194230
@@ -1086,7 +1091,7 @@ MonoBehaviour:
   level: 0
   levelMax: 0
   shotsTaken: 0
-  castle: {fileID: 0}
+  castle: {fileID: 918590912}
   mode: 0
   showing: Show Slingshot
 --- !u!1 &1024489013
