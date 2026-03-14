@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public enum GameMode
 {
     idle,
@@ -14,13 +15,17 @@ public class MissionDemolition : MonoBehaviour
     [Header("Inscribed")]
     public Text uitLevel;
     public Text uitShots;
+    public Text uitScore;
     public Vector3 castlePos; //A place to put the castles
     public GameObject[] castles; //An array of the castles
+    public AudioSource snapSource;
 
     [Header("Dynamic")]
+    public int score = 0;
     public int level; //The current level
     public int levelMax; //Number of levels
     public int shotsTaken;
+    public GameObject gameOverPanel;
     public GameObject castle; //Current Castle
     public GameMode mode = GameMode.idle;
     public string showing = "Show Slingshot"; //FollowCam Mode
@@ -31,6 +36,7 @@ public class MissionDemolition : MonoBehaviour
         level = 0;
         shotsTaken = 0;
         levelMax = castles.Length;
+        gameOverPanel.SetActive(false);
         StartLevel();
     }
     void StartLevel()
@@ -57,6 +63,7 @@ public class MissionDemolition : MonoBehaviour
         //Show the data in the GUI texts
         uitLevel.text = "Level: " + (level + 1) + " of " + levelMax;
         uitShots.text = "Shots Taken: " + shotsTaken;
+        uitScore.text = "Score: " + score;
     }
     void Update()
     {
@@ -76,19 +83,43 @@ public class MissionDemolition : MonoBehaviour
         level++;
         if (level == levelMax)
         {
-            level = 0;
-            shotsTaken = 0;
+            ShowGameOver();
         }
+        else
+        {
+            StartLevel();
+        }
+    }
+    void ShowGameOver()
+    {
+        mode = GameMode.levelEnd;
+        gameOverPanel.SetActive(true); // Show the UI
+    }
+    public void ReloadGame()
+    {
+
+        level = 0;
+        shotsTaken = 0;
+        gameOverPanel.SetActive(false);
         StartLevel();
+
     }
     //Static Method that allows code anywhere to increment shots taken
     static public void SHOT_FIRED()
     {
         S.shotsTaken++;
+        if (S.snapSource != null)
+        {
+            S.snapSource.Play();
+        }
     }
     //Static method that allows code anywhere to get a reference to S.castle
     static public GameObject GET_CASTLE()
     {
         return S.castle;
+    }
+    static public void ADD_SCORE(int points)
+    {
+        S.score += points;
     }
 }
