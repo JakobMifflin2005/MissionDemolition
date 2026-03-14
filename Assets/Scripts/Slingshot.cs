@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Slingshot : MonoBehaviour
 {
+    [SerializeField] private LineRenderer rubber;
+    [SerializeField] private Transform firstPoint;
+    [SerializeField] private Transform secondPoint;
     //fields set in the Unity Inspector Pane
     [Header("Inscribed")]
     public GameObject projectilePrefab;
@@ -45,6 +48,11 @@ public class Slingshot : MonoBehaviour
         //Set it to isKinematic for now
         projectile.GetComponent<Rigidbody>().isKinematic = true;
     }
+    void Start()
+    {
+        rubber.SetPosition(0, firstPoint.position);
+        rubber.SetPosition(2, secondPoint.position);
+    }
 
     void Update()
     {
@@ -68,11 +76,16 @@ public class Slingshot : MonoBehaviour
         //Move Projectile to this new position
         Vector3 projPos = launchPos + mouseDelta;
         projectile.transform.position = projPos;
-
+        if (aimingMode)
+        {
+            rubber.enabled = true;
+            rubber.SetPosition(1, projPos);
+        }
         if (Input.GetMouseButtonUp(0)) //e
         {
             //The Mouse has been released
             aimingMode = false;
+            rubber.enabled = false;
             Rigidbody projRB = projectile.GetComponent<Rigidbody>();
             projRB.isKinematic = false; //f
             projRB.collisionDetectionMode = CollisionDetectionMode.Continuous;
@@ -85,5 +98,12 @@ public class Slingshot : MonoBehaviour
             projectile = null; //g
             MissionDemolition.SHOT_FIRED();
         }
+    }
+    Vector3 GetMousePositionInWorld()
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition.z += Camera.main.transform.position.z;
+        Vector3 mousePositionInWorld = Camera.main.ScreenToWorldPoint(mousePosition);
+        return mousePositionInWorld - transform.position;
     }
 }
